@@ -1,0 +1,56 @@
+.inputContainer {
+  position: relative;
+}
+
+.input-box {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: relative;
+  left: 40px;
+}
+
+.air-quality {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  margin-top: -12px;
+}
+@media only screen and (max-width: 1000px) {
+  .air-quality {
+    position: static;
+    margin-top: 20px;
+  }
+}
+
+.weatherInput {
+  width: 30%;
+  padding: 5px 10px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.weatherInput:focus {
+  outline: none;
+  box-shadow: 0 0 2px 2px #ddd;
+}
+.search-btn {
+  margin-left: 10px;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+}
+.search-btn:hover {
+  scale: 1.25;
+}
+
+.errorText {
+  margin: 50px 20px;
+  background-color: yellow;
+  color: tomato;
+}
