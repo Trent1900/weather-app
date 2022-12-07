@@ -37,7 +37,6 @@ const SearchCity = (props) => {
           setError(undefined);
         }
       } catch ({ error }) {
-        // console.log("error.message", error.message);
         setError(error.message);
       } finally {
         setLoading(false);

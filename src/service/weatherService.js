@@ -1,4 +1,4 @@
-const API_KEY = "c21f9b0b30db47d58ce83511220510";
+const API_KEY = "d503b357e92b437a86932049220712";
 const FETCH_CITY_WEATHER_URL = `http://api.weatherapi.com/v1/current.json`;
 const FETCH_WEATHER_FORECAST_URL = `http://api.weatherapi.com/v1/forecast.json`;
 const FETCH_IP_URL = `http://api.weatherapi.com/v1/ip.json`;
