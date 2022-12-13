@@ -1,25 +1,13 @@
 const API_KEY = "d503b357e92b437a86932049220712";
-const FETCH_CITY_WEATHER_URL = `https://api.weatherapi.com/v1/current.json`;
 const FETCH_WEATHER_FORECAST_URL = `https://api.weatherapi.com/v1/forecast.json`;
 const FETCH_IP_URL = `https://api.weatherapi.com/v1/ip.json`;
 
-export const fetchWeatherByCity = async (city) => {
-  const url = new URL(FETCH_CITY_WEATHER_URL);
-
-  url.searchParams.append("key", API_KEY);
-  url.searchParams.append("q", city);
-  url.searchParams.append("aqi", "yes");
-
-  const response = await fetch(url);
-
-  return response;
-};
-
-export const fetchWeatherForecast = async (city) => {
+export const fetchWeatherForecast = async (coordinate) => {
   const url = new URL(FETCH_WEATHER_FORECAST_URL);
-
+  const coor = [coordinate.lat, coordinate.lng];
   url.searchParams.append("key", API_KEY);
-  url.searchParams.append("q", city);
+  url.searchParams.append("q", coor);
+
   url.searchParams.append("days", 5);
   url.searchParams.append("aqi", "yes");
 

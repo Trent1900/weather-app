@@ -1,4 +1,8 @@
 import { useState } from "react";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-places-autocomplete";
 import {
   fetchWeatherByIp,
   fetchWeatherForecast,
@@ -12,13 +16,11 @@ const SearchCity = (props) => {
   const { setWeather, setLoading, setSelect, showAirQuality } = props;
   const [city, setCity] = useState("Brisbane");
   const [error, setError] = useState(undefined);
-  const handleChange = (e) => {
-    setCity(e.target.value);
-  };
+  const [address, setAddress] = useState("");
+  const [coordinate, setCoordinate] = useState("");
 
-  const onSearchButtonOnClick = (param) => async (e) => {
-    if (param) {
-      e.preventDefault();
+  const handleSearchButton = async (param) => {
+    if (param !== undefined) {
       setLoading(true);
       try {
         const res =
@@ -43,29 +45,81 @@ const SearchCity = (props) => {
       }
     }
   };
+
   const handleSelection = (e) => {
     setSelect(e.target.checked);
   };
 
+  const handleSelect = async (value) => {
+    const results = await geocodeByAddress(value);
+    const coordinateResult = await getLatLng(results[0]);
+    setAddress(value);
+    setCoordinate(coordinateResult);
+    handleSearchButton(coordinateResult);
+  };
   return (
-    <Form onSubmit={onSearchButtonOnClick(city)}>
+    <Form
+      onSubmit={() => {
+        handleSearchButton(city);
+      }}
+    >
       <div className="inputContainer ">
         <div className="input-box ">
-          <input
-            className="weatherInput"
-            type="text"
-            placeholder="Search City"
-            value={city}
-            onChange={handleChange}
-          />
+          <PlacesAutocomplete
+            value={address}
+            onChange={setAddress}
+            onSelect={handleSelect}
+          >
+            {({
+              getInputProps,
+              suggestions,
+              getSuggestionItemProps,
+              loading,
+            }) => (
+              <div key={suggestions}>
+                <input
+                  className="weatherInput"
+                  {...getInputProps({
+                    placeholder: "Search Places ...",
+                    autoFocus: true,
+                  })}
+                />
+                <div>
+                  {loading && <div>Loading...</div>}
+                  {suggestions.map((suggestion) => {
+                    const className = suggestion.active
+                      ? "suggestion-item--active"
+                      : "suggestion-item";
+                    // inline style for demonstration purpose
+                    const style = suggestion.active
+                      ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                      : { backgroundColor: "#ffffff", cursor: "pointer" };
+                    return (
+                      <div
+                        {...getSuggestionItemProps(suggestion, {
+                          className,
+                          style,
+                        })}
+                        key={suggestion.placeId}
+                      >
+                        <span>{suggestion.description}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </PlacesAutocomplete>
           <BiSearch
             className="search-btn"
-            disabled={city.length > 1 ? 0 : 1}
-            onClick={onSearchButtonOnClick(city)}
+            disabled={city.length > 1 ? false : true}
+            onClick={() => {
+              handleSearchButton(coordinate);
+            }}
           ></BiSearch>
           <GrLocation
             className="search-btn"
-            onClick={onSearchButtonOnClick("auto:ip")}
+            // onClick={handleSearchButton("auto:ip")}
           ></GrLocation>
         </div>
         <div className="air-quality">

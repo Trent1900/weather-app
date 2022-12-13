@@ -8,7 +8,6 @@
   align-items: center;
   display: flex;
   position: relative;
-  left: 40px;
 }
 
 .air-quality {
@@ -25,7 +24,6 @@
 }
 
 .weatherInput {
-  width: 30%;
   padding: 5px 10px;
   font-weight: 400;
   line-height: 1.5;

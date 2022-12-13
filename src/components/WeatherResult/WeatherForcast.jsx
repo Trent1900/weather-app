@@ -34,7 +34,7 @@ const WeatherForecast = ({ weatherData, showAirQuality }) => {
     }
   }
   const time = new Date(location.localtime.replace(/-/g, "/"));
-
+  // console.log(weatherData);
   return (
     <>
       {/* location information */}
@@ -133,8 +133,9 @@ const WeatherForecast = ({ weatherData, showAirQuality }) => {
           <ul className="hourly-forecast-list row">
             {forecast.forecastday[0].hour.slice(0, 11).map((item) => {
               const time = new Date(item.time.replace(/-/g, "/"));
+              // console.log(item, "@weatherForecast");
               return (
-                <li className="hourly-item col">
+                <li className="hourly-item col" key={item.time_epoch}>
                   <p>{time.toLocaleTimeString("en-AU")}</p>
                   <div>
                     <img src={item.condition.icon} alt="" />
@@ -148,11 +149,11 @@ const WeatherForecast = ({ weatherData, showAirQuality }) => {
       )}
       {forecast && (
         <div className="Weather-forecast-section row ">
-          <h3 className="mt-4">Next 5 days forecast</h3>
+          <h3 className="mt-4">Next 3 days forecast</h3>
           {forecast.forecastday.map((item) => {
             const date = new Date(item.date);
             return (
-              <ul className="Weather-forecast-lists col">
+              <ul className="Weather-forecast-lists col" key={date}>
                 <li className="fs-6 text-muted ">
                   <span>{date.toLocaleDateString("en-AU", Option3)}</span>
                 </li>
