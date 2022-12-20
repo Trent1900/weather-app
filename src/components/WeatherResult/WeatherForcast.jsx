@@ -34,7 +34,20 @@ const WeatherForecast = ({ weatherData, showAirQuality }) => {
     }
   }
   const time = new Date(location.localtime.replace(/-/g, "/"));
-  // console.log(weatherData);
+
+  const currentTime = parseInt(
+    time.toLocaleTimeString("en-AU", {
+      hour12: false,
+      hour: "2-digit",
+    })
+  );
+  // 得到目前的时间,从目前的时间开始,把hourly forecast 放进同一个array里面.
+
+  const hourlyData = forecast.forecastday[0].hour
+    .concat(forecast.forecastday[1].hour)
+    .concat(forecast.forecastday[2].hour)
+    .slice(currentTime);
+
   return (
     <>
       {/* location information */}
@@ -130,13 +143,19 @@ const WeatherForecast = ({ weatherData, showAirQuality }) => {
       {forecast && (
         <div className="hourly-forecast-container ">
           <h3>Hourly forecast</h3>
-          <ul className="hourly-forecast-list row">
-            {forecast.forecastday[0].hour.slice(0, 11).map((item) => {
+          <ul className="hourly-forecast-list">
+            {hourlyData.map((item) => {
               const time = new Date(item.time.replace(/-/g, "/"));
               // console.log(item, "@weatherForecast");
               return (
                 <li className="hourly-item col" key={item.time_epoch}>
-                  <p>{time.toLocaleTimeString("en-AU")}</p>
+                  <p>
+                    {time.toLocaleTimeString("en-AU", {
+                      hour12: false,
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </p>
                   <div>
                     <img src={item.condition.icon} alt="" />
                   </div>

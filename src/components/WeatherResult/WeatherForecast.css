@@ -141,13 +141,22 @@ ul {
 /* hourly-forecast-container start*/
 /* ============================ */
 .hourly-forecast-list {
+  padding: 0;
   display: flex;
-  overflow: hidden;
+  /* overflow: hidden; */
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
   border-top: 1px solid #666;
+  height: 170px;
+  flex-wrap: nowrap;
+  border: 1px solid #000;
 }
 .hourly-item {
+  margin: 0;
   margin: 10px;
-  padding-top: 30px;
+  padding-top: 10px;
+  border: 1px solid #000;
 }
 
 @media only screen and (min-width: 900px) {

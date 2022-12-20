@@ -8,7 +8,6 @@ const Weather = () => {
   const [weather, setWeather] = useState(undefined);
   const [isLoading, setLoading] = useState(false);
   const [isSelected, setSelect] = useState(false);
-
   return (
     <Card className="weather-container">
       <Card.Header as="h5">Weather App</Card.Header>
@@ -31,7 +30,9 @@ const Weather = () => {
           )
         )}
       </Card.Body>
-      <Card.Footer className="text-muted">By Trent</Card.Footer>
+      <Card.Footer className="text-muted">
+        By <a href="https://trent1900.github.io/">Trent</a>
+      </Card.Footer>
     </Card>
   );
 };

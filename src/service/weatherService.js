@@ -8,7 +8,7 @@ export const fetchWeatherForecast = async (coordinate) => {
   url.searchParams.append("key", API_KEY);
   url.searchParams.append("q", coor);
 
-  url.searchParams.append("days", 5);
+  url.searchParams.append("days", 3);
   url.searchParams.append("aqi", "yes");
 
   const response = await fetch(url);
